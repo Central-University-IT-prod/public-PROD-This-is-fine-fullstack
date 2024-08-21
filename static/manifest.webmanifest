@@ -1,0 +1,49 @@
+{
+    "name": "Matching",
+    "short_name": "Matching",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#222831",
+    "description": "App for matching your teammates.",
+    "orientation": "portrait",
+    "theme_color": "#222831",
+    "categories": [
+        "education"
+    ],
+    "icons": [
+        {
+            "src": "imgs/icons/icon48.png",
+            "sizes": "48x48",
+            "type": "image/png"
+        },
+        {
+            "src": "imgs/icons/icon120.png",
+            "sizes": "120x120",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "imgs/icons/icon256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "imgs/icons/icon512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "imgs/screenshots/mobile.jpg",
+            "sizes": "576x1058",
+            "type": "image/jpg"
+        },
+        {
+            "src": "imgs/screenshots/desktop.png",
+            "sizes": "1900x1081",
+            "type": "image/png",
+            "form_factor": "wide"
+        }
+    ]
+}

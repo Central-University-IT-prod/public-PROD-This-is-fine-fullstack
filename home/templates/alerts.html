@@ -1,0 +1,203 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matching</title>
+    <link rel="stylesheet" href="{% static 'styles/theme.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/header.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/alerts.css' %}">
+    <link rel="apple-touch-icon" href="{% static 'imgs/icons/apple-icon-180x180.png' %}" type="image/png">
+    <link rel="icon" href="{% static 'imgs/icons/icon-120x120.png' %}" type="image/png">
+    <meta name="theme-color" content="#222831">
+    <link rel="manifest" href="{% static '/manifest.webmanifest' %}">
+    <script src="{% static 'scripts/alert.js' %}" async></script>
+    <script src="{% static 'scripts/loader.js' %}" async></script>
+</head>
+
+<body>
+    <div id="container-loader" class="container-loader">
+        <div class="lds-ripple">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <header class="header">
+        <div class="container">
+            <div class="header__icon">
+                <a href="/">Matching</a>
+            </div>
+            <nav>
+                <ul class="header__list">
+                    <li class="header__list-item"><a href="/my-profile">Профиль</a></li>
+                    <li class="header__list-item"><a href="/teams">Команды</a></li>
+                    <li class="header__list-item"><a href="/teams/my-team/">Моя команда</a></li>
+                    <li class="header__list-item active"><a href="/notifications/">Уведомления</a></li>
+                </ul>
+                <ul class="header__list header__list--mobile">
+                    <li class="header__list-item"><a href="/" aria-label="Перейти на главную страницу">
+                            <img src="{% static 'imgs/home.svg' %}" alt="значок главной">
+                        </a></li>
+                    <li class="header__list-item"><a href="/my-profile" aria-label="Перейти на страницу профиля">
+                            <img src="{% static 'imgs/user.svg' %}" alt="значок профиля">
+                        </a></li>
+                    <li class="header__list-item"><a href="/teams" aria-label="Перейти на страницу команд">
+                            <img src="{% static 'imgs/teams.svg' %}" alt="значок команд">
+                        </a></li>
+                    <li class="header__list-item"><a href="/teams/my-team/" aria-label="Перейти на страницу моей команды">
+                            <img src="{% static 'imgs/my-team.svg' %}" alt="значок моей комманды">
+                        </a></li>
+                    <li class="header__list-item active"><a href="/notifications/" aria-label="Перейти на страницу уведомлений">
+                            <img src="{% static 'imgs/notifications.svg' %}" alt="значок уведомлений">
+                        </a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="main__container container">
+        <div class="alerts-list">
+            {% for notification in notifications_by_organizator %}
+            <div class="alert-container">
+                <div class="alert-text">
+                    Сообшение от <b>организаторов</b> по теме: <b>{{notification.title}}</b>
+                    <br>
+                    {{notification.text}} 
+                </div>
+                <img src="{% static 'imgs/alerts_img/warning.svg' %}" alt="уведомление">
+            </div>
+            {% endfor %}
+
+            {% for notify in your_acepted %}
+            <div class="alert-container">
+                <div class="alert-text">
+                    Пользователь <a class="participant" href="/profiles/{{notify.to_user.profile.pk}}">{{notify.to_user}}</a>
+                    <b>принял</b> вашу заявку на вступление в команду <a href="/teams/{{notify.team.pk}}" class="team">{{notify.team}}</a> 
+                </div>
+                <img src="{% static 'imgs/alerts_img/yes.svg' %}" alt="уведомление">
+            </div>
+            {% endfor %}
+            {% for notify in your_denied %}
+            <div class="alert-container">
+                <div class="alert-text">
+                    Пользователь <a class="participant" href="/profiles/{{notify.to_user.profile.pk}}">{{notify.to_user}}</a>
+                    <b>отклонил</b> вашу заявку на вступление в команду <a href="/teams/{{notify.team.pk}}" class="team">{{notify.team}}</a> 
+                </div>
+                <img src="{% static 'imgs/alerts_img/no.svg' %}" alt="уведомление">
+            </div>
+            {% endfor %}
+            {% for notify in notifications_apply %}
+            <div class="alert-container accept">
+                <div class="alert-text-container">
+                    <div class="alert-text">
+                        Пользователь <a class="participant" href="/profiles/{{notify.from_user.profile.pk}}">{{notify.from_user}}</a>
+                        <b>отправил</b> заявку на вступление в команду <a href="/teams/{{notify.team.pk}}" class="team">{{notify.team}}</a> 
+                        </div>
+                        <img src="{% static 'imgs/alerts_img/accept.svg' %}" alt="уведомление">
+                </div> 
+                <div class="alert-buttons-container">
+                    <button onclick="applyAlert({{notify.from_user.pk}}, {{notify.team.pk}})"> <img src="{% static 'imgs/alerts_img/add.svg' %}" alt="принять"><div class="button-text">Принять</div></button>
+                    <button onclick="rejectAlert({{notify.from_user.pk}}, {{notify.team.pk}})"> <img src="{% static 'imgs/alerts_img/remove.svg' %}" alt="отклонить"><div class="button-text">Отклонить</div></button>
+                </div>
+            </div>
+            {% endfor %}
+
+
+            {% for notify in invite_acepted %}
+            <div class="alert-container">
+                <div class="alert-text">
+                    Пользователь <a class="participant" href="/profiles/{{notify.to_user.profile.pk}}">{{notify.to_user}}</a>
+                    <b>принял</b> заявку на вступление в вашу команду <a href="/teams/{{notify.team.pk}}" class="team">{{notify.team}}</a> 
+                </div>
+                <img src="{% static 'imgs/alerts_img/yes.svg' %}" alt="уведомление">
+            </div>
+            {% endfor %}
+            {% for notify in invite_denied %}
+            <div class="alert-container">
+                <div class="alert-text">
+                    Пользователь <a class="participant" href="/profiles/{{notify.to_user.profile.pk}}">{{notify.to_user}}</a>
+                    <b>отклонил</b> заявку на вступление в вашу команду <a href="/teams/{{notify.team.pk}}" class="team">{{notify.team}}</a> 
+                </div>
+                <img src="{% static 'imgs/alerts_img/no.svg' %}" alt="уведомление">
+            </div>
+            {% endfor %}
+            {% for notify in invite_need_apply %}
+            <div class="alert-container accept">
+                <div class="alert-text-container">
+                    <div class="alert-text">
+                        Пользователь <a class="participant" href="/profiles/{{notify.from_user.profile.pk}}">{{notify.from_user}}</a>
+                        <b>отправил</b> вам заявку на вступление в его команду <a href="/teams/{{notify.team.pk}}" class="team">{{notify.team}}</a> 
+                        </div>
+                        <img src="{% static 'imgs/alerts_img/accept.svg' %}" alt="уведомление">
+                </div> 
+                <div class="alert-buttons-container">
+                    <button onclick="applyInvite({{notify.from_user.pk}}, {{notify.team.pk}})"> <img src="{% static 'imgs/alerts_img/add.svg' %}" alt="принять"><div class="button-text">Принять</div></button>
+                    <button onclick="rejectInvite({{notify.from_user.pk}}, {{notify.team.pk}})"> <img src="{% static 'imgs/alerts_img/remove.svg' %}" alt="отклонить"><div class="button-text">Отклонить</div></button>
+                </div>
+            </div>
+            {% endfor %}
+        
+        </div>
+        {% if was_readed %}
+            <button class="btn" onclick="document.location.replace('/delete-readed/')">Удалить прочитанные</button>
+        {% endif %}
+        <div class="alerts-list">
+            {% for notification in notifications_by_organizator_readed %}
+            <div class="alert-container alert-checked">
+                <div class="alert-text">
+                    Сообшение от <b>организаторов</b> по теме: <b>{{notification.title}}</b>
+                    <br>
+                    {{notification.text}} 
+                </div>
+                <img src="{% static 'imgs/alerts_img/warning.svg' %}" alt="уведомление">
+            </div>
+            {% endfor %}
+
+            {% for notify in your_acepted_readed %}
+            <div class="alert-container alert-checked">
+                <div class="alert-text">
+                    Пользователь <a class="participant" href="/profiles/{{notify.to_user.profile.pk}}">{{notify.to_user}}</a>
+                    <b>принял</b> вашу заявку на вступление в команду <a href="/teams/{{notify.team.pk}}" class="team">{{notify.team}}</a> 
+                </div>
+                <img src="{% static 'imgs/alerts_img/yes.svg' %}" alt="уведомление">
+            </div>
+            {% endfor %}
+            {% for notify in your_denied_readed %}
+            <div class="alert-container alert-checked">
+                <div class="alert-text">
+                    Пользователь <a class="participant" href="/profiles/{{notify.to_user.profile.pk}}">{{notify.to_user}}</a>
+                    <b>отклонил</b> вашу заявку на вступление в команду <a href="/teams/{{notify.team.pk}}" class="team">{{notify.team}}</a> 
+                </div>
+                <img src="{% static 'imgs/alerts_img/no.svg' %}" alt="уведомление">
+            </div>
+            {% endfor %}
+
+
+            {% for notify in invite_acepted_readed %}
+            <div class="alert-container alert-checked">
+                <div class="alert-text">
+                    Пользователь <a class="participant" href="/profiles/{{notify.to_user.profile.pk}}">{{notify.to_user}}</a>
+                    <b>принял</b> заявку на вступление в вашу команду <a href="/teams/{{notify.team.pk}}" class="team">{{notify.team}}</a> 
+                </div>
+                <img src="{% static 'imgs/alerts_img/yes.svg' %}" alt="уведомление">
+            </div>
+            {% endfor %}
+            {% for notify in invite_denied_readed %}
+            <div class="alert-container alert-checked">
+                <div class="alert-text">
+                    Пользователь <a class="participant" href="/profiles/{{notify.to_user.profile.pk}}">{{notify.to_user}}</a>
+                    <b>отклонил</b> заявку на вступление в вашу команду <a href="/teams/{{notify.team.pk}}" class="team">{{notify.team}}</a> 
+                </div>
+                <img src="{% static 'imgs/alerts_img/no.svg' %}" alt="уведомление">
+            </div>
+            {% endfor %}
+        </div>
+
+        
+    </div>
+</body>
+
+</html>

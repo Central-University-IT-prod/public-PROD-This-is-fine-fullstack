@@ -1,0 +1,141 @@
+.main__container{
+    margin: 0 auto;
+    padding: 30px 31px;
+    justify-content: center;
+    max-width: 320px;
+}
+
+.avatar{
+    max-width: 320px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.avatar img{
+    border-radius: 10px;
+    max-width: 320px;
+    height: 200px;
+    margin: 0 auto;
+}
+
+
+.city{
+    display: flex;
+    align-items: start;
+    margin: 10px 0;
+}
+.interests{
+    display: flex;
+    align-items: start;
+    margin: 10px 0;
+}
+.track{
+    display: flex;
+    align-items: start;
+    margin: 10px 0;
+}
+.stack{
+    display: flex;
+    align-items: start;
+    margin: 10px 0;
+}
+.contacts{
+    display: flex;
+    align-items: start;
+    margin: 10px 0;
+}
+
+
+
+
+
+.profile__login{
+    font-weight: bold;
+    font-size: 20px;
+    color: var(--main-color);
+}
+.profile__login span{
+    font-weight: 300;
+    color: var(--font-color);
+    font-size: 1.5rem;
+}
+.profile__fio{
+    font-size: .875rem;
+    opacity: 0.88;
+}
+
+
+
+.profile__info{
+    font-size: 1.1rem;
+    margin: 16px 0;
+}
+.profile__info img{
+    width: 24px;
+    height: 24px;
+    transform: translateY(4px);
+    margin-right: 10px;
+
+}
+
+@media(min-width: 768px){
+    .main__container{
+        max-width: 360px;
+    }
+    .avatar{
+        max-width: 360px;
+    }
+    .avatar img{
+        max-width: 360px;
+        height: 230px;
+    }
+    .profile__login{
+        font-size: 26px;
+    }
+    .profile__login span{
+        font-size: 2rem;
+    }
+    .profile__fio{
+        font-size: 1.2rem;
+    }
+    .profile__info{
+        font-size: 1.35rem;
+    }
+    .profile__description{
+        font-size: 1.2rem;
+    }
+}
+
+@media(min-width: 1024px){
+    .main__container{
+        max-width: 360px;
+    }
+    .avatar{
+        max-width: 360px;
+    }
+    .avatar img{
+        max-width: 360px;
+        height: 230px;
+    }
+    .profile__login{
+        font-size: 26px;
+    }
+    .profile__login span{
+        font-size: 2rem;
+    }
+    .profile__fio{
+        font-size: 1.2rem;
+    }
+    .profile__info{
+        font-size: 1.35rem;
+    }
+    .profile__description{
+        font-size: 1.2rem;
+    }
+}
+
+
+
+
+

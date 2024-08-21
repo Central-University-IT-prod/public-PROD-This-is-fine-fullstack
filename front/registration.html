@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matching</title>
+    <link rel="stylesheet" href="styles/theme.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/entry.css">
+    <script src="scripts/registration.js" async></script>
+    <meta name="theme-color" content="#222831">
+    <link rel="manifest" href="{% static '/manifest.webmanifest' %}">
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="heading">Регистрация</h1>
+        <form action="" class="form">
+            <fieldset class="form__part opened">
+                <input type="text" name="login" class="form__input" placeholder="Введите логин*" required>
+                <input type="text" name="password1" class="form__input" placeholder="Введите пароль*" required
+                    onpaste="return false">
+                <input type="text" name="password2" class="form__input" placeholder="Повторите пароль*" required
+                    onpaste="return false">
+                <input type="text" name="fio" class="form__input" placeholder="Введите ФИО*" required>
+                <input type="number" max="11" min="1" name="participation_class" class="form__input"
+                    placeholder="Введите класс участия*" required>
+                <input type="button" value="ДАЛЕЕ" class="form__next" onclick="toggleForm(this)">
+            </fieldset>
+            <fieldset class="form__part">
+                <label>
+                    <input type="file" name="avatar" class="form__file"
+                        onchange="this.nextElementSibling.innerHTML=this.files[0].name">
+                    <span class="form__input form__file-visible">Загрузите аватар</span>
+                </label>
+                <input type="text" name="city" class="form__input" placeholder="Введите город">
+                <textarea class="form__textarea" name="bio" rows="5" placeholder="О себе"></textarea>
+                <input type="button" value="Выберите интересы" class="form__input"
+                    onclick="this.nextElementSibling.classList.toggle('opened')">
+                <div class="form__picker-wrapper">
+                    <div class="form__picker-items form__picker-choosed-items"></div>
+                    <div class="form__picker-items">
+                        <label class="form__picker-item"><input type="checkbox" name="interest" value="cпорт"
+                                onclick="transportCheckbox(this)">cпорт</label>
+                        <label class="form__picker-item"><input type="checkbox" name="interest" value="cпорт"
+                                onclick="transportCheckbox(this)">музыка</label>
+                        <label class="form__picker-item"><input type="checkbox" name="interest" value="cпорт"
+                                onclick="transportCheckbox(this)">искусство</label>
+                    </div>
+                </div>
+                <input type="button" value="ДАЛЕЕ" class="form__next" onclick="toggleForm(this)">
+            </fieldset>
+            <fieldset class="form__part">
+                <select name="track" class="form__input form__select">
+                    <option value="">Выберите трек</option>
+                </select>
+                <input type="button" value="Выберете стек" class="form__input"
+                    onclick="this.nextElementSibling.classList.toggle('opened')">
+                <div class="form__picker-wrapper">
+                    <div class="form__picker-items form__picker-choosed-items"></div>
+                    <div class="form__picker-items">
+                        <label class="form__picker-item"><input type="checkbox" name="interest" value="cпорт"
+                                onclick="transportCheckbox(this)">Go</label>
+                        <label class="form__picker-item"><input type="checkbox" name="interest" value="cпорт"
+                                onclick="transportCheckbox(this)">Python</label>
+                        <label class="form__picker-item"><input type="checkbox" name="interest" value="cпорт"
+                                onclick="transportCheckbox(this)">Rust</label>
+                    </div>
+                </div>
+                <input class="form__input" type="tel" pattern="[0-9]{11}" name="phonenumber"
+                    placeholder="Введите телефон">
+                <input class="form__input" type="text" name="telegram" placeholder="Введите telegram">
+                <input class="form__input" type="text" name="email" placeholder="Введите почту участия*">
+                <input type="submit" value="ЗАРЕГИСТРИРОВАТЬСЯ" class="form__next">
+            </fieldset>
+        </form>
+
+    </div>
+</body>
+
+</html>

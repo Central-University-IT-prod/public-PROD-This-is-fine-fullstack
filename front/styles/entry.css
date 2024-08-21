@@ -1,0 +1,212 @@
+body {
+    text-align: center;
+    margin: 10vh 0 0 0;
+}
+
+.container {
+    max-width: 500px;
+}
+
+.heading,
+.sub-heading {
+    margin: 0;
+}
+
+.heading {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.sub-heading {
+    opacity: .77;
+    font-size: 0.875;
+    font-weight: 200;
+}
+
+.form {
+    margin-top: 26px;
+    text-align: left;
+}
+
+.form .form__input--invalid {
+    border: 1px solid #f03636;
+}
+
+.form .form__input--invalid::placeholder {
+    color: #f03636;
+}
+
+.form__part {
+    display: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.form__input--pic {
+    padding-right: 37px;
+    background: right 17px center / 20px 20px url('/imgs/lock.svg') no-repeat;
+}
+
+.form__input--pic:first-child {
+    background-image: url('/imgs/login.svg');
+}
+
+.form__input,
+.form__textarea {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 17px;
+    box-sizing: border-box;
+    border: 0;
+    border-radius: 82px;
+    background-color: var(--dark-color);
+    color: var(--font-color);
+}
+
+.form__input::placeholder,
+.form__textarea::placeholder {
+    opacity: .64;
+    color: var(--font-color);
+}
+
+.form__label {
+    font-size: 0.75rem;
+    display: flex;
+}
+
+.form__label span {
+    opacity: .68;
+}
+
+.form__checkbox {
+    display: block;
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+.form__label::before {
+    content: '';
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    flex-grow: 0;
+    border: 1px solid #adb5bd;
+    border-radius: 0.25em;
+    margin: 3px 5px 0 0;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+    cursor: pointer;
+    transition: all .1s;
+}
+
+.form__checkbox:checked+.form__label::before {
+    border-color: var(--main-color);
+    background-color: var(--main-color);
+    background-image: url("/imgs/checkbox.svg");
+}
+
+.form__checkbox:hover+.form__label::before,
+.form__checkbox:focus+.form__label::before {
+    border-color: var(--main-color);
+}
+
+.form__file {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    display: block;
+    width: 0;
+    height: 0;
+}
+
+.form__file-visible {
+    display: block;
+    cursor: pointer;
+    padding: 17px;
+    box-sizing: border-box;
+    margin: 0 0 10px;
+    word-break: break-all;
+}
+
+.form__textarea {
+    border-radius: 10px;
+}
+
+.form__select {
+    border-radius: 10px;
+    padding-right: 10px;
+}
+
+.form__picker-wrapper {
+    display: none;
+}
+
+.form__picker-items {
+    background-color: var(--dark-color);
+    padding: 17px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+}
+
+.form__picker-item input {
+    display: block;
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+.form__picker-item {
+    background-color: var(--main-color);
+    padding: 2px 6px;
+    color: var(--bg-color);
+    border-radius: 5px;
+    font-weight: 400;
+    display: inline-flex;
+    align-items: center;
+    opacity: .68;
+    margin: 2px;
+}
+
+.form__picker-item::after {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: center url('/imgs/cross.svg') no-repeat;
+    transform: rotate(45deg);
+}
+
+.form__picker-choosed-items .form__picker-item {
+    opacity: 1;
+}
+
+.form__picker-choosed-items .form__picker-item::after {
+    transform: rotate(0);
+}
+
+.form__submit,
+.form__next {
+    display: block;
+    background-color: var(--main-color);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--bg-color);
+    width: 100%;
+    border-radius: 82px;
+    padding: 12px;
+    margin-top: 30px;
+    border: 0;
+}
+
+.registration {
+    margin-top: 5px;
+}
+
+.opened {
+    display: block;
+}

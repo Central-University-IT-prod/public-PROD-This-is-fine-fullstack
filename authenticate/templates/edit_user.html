@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matching</title>
+    <link rel="stylesheet" href="{% static 'styles/theme.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/entry.css' %}">
+    <link rel="apple-touch-icon" href="{% static 'imgs/icons/apple-icon-180x180.png' %}" type="image/png">
+    <link rel="icon" href="{% static 'imgs/icons/icon-120x120.png' %}" type="image/png">
+    <meta name="theme-color" content="#222831">
+    <link rel="manifest" href="{% static '/manifest.webmanifest' %}">
+    <script src="{% static 'scripts/registration.js' %}" async></script>
+    <script src="{% static 'scripts/loader.js' %}" async></script>
+    <script src="{% static 'scripts/edit_profile.js' %}" async></script>
+</head>
+
+<body>
+    <div id="container-loader" class="container-loader">
+        <div class="lds-ripple">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <div class="container">
+        <h1 class="heading">Изменение профиля</h1>
+        {% for error in errors %}
+            <p class="warning">{{error}}</p>
+        {% endfor %}
+
+        <form action="" method="post" class="form" name="registration" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form__part opened">
+                <input type="text" name="login" value="{{username}}" class="form__input" placeholder="Введите логин*" required>
+                <input type="password" name="password1" class="form__input" placeholder="Введите пароль*" required
+                    onpaste="return false">
+                <input type="password" name="password2" class="form__input" placeholder="Повторите пароль*" required
+                    onpaste="return false">
+                <input type="text" name="fio" value="{{fio}}" class="form__input" placeholder="Введите ФИО*" required>
+                <input type="number" max="11" value="{{participation_class}}" min="1" name="participation_class" class="form__input"
+                    placeholder="Введите класс участия*" required>
+                <input type="button" value="ДАЛЕЕ" class="form__next btn" onclick="toggleForm(this); loadLists({{stack|safe}}, {{interests|safe}})">
+            </fieldset>
+            <fieldset class="form__part">
+                <label>
+                    <input type="file" name="avatar" class="form__file"
+                        onchange="this.nextElementSibling.innerHTML=this.files[0].name">
+                    <span class="form__input form__file-visible">Загрузите аватар</span>
+                </label>
+                <input type="text" name="city" value="{{city}}" class="form__input" placeholder="Введите город">
+                <textarea class="form__textarea" name="bio" rows="5" placeholder="О себе">{{bio}}</textarea>
+                <input type="button" value="Выберите интересы" class="form__input"
+                    onclick="this.nextElementSibling.classList.toggle('opened')">
+                <div class="form__picker-wrapper">
+                    <div class="form__picker-items form__picker-choosed-items"></div>
+                    <div class="form__picker-items">
+                        <label class="form__picker-item"><input type="checkbox" name="interest" value="cпорт"
+                            onclick="transportCheckbox(this)">cпорт</label>
+                        <label class="form__picker-item"><input type="checkbox" name="interest" value="музыка"
+                            onclick="transportCheckbox(this)">музыка</label>
+                        <label class="form__picker-item"><input type="checkbox" name="interest" value="кулинария"
+                            onclick="transportCheckbox(this)">кулинария</label>
+                        <label class="form__picker-item"><input type="checkbox" name="interest" value="рисование"
+                            onclick="transportCheckbox(this)">рисование</label>
+                        <label class="form__picker-item"><input type="checkbox" name="interest" value="фотография"
+                            onclick="transportCheckbox(this)">фотография</label>
+                        <label class="form__picker-item"><input type="checkbox" name="interest" value="литература"
+                            onclick="transportCheckbox(this)">литература</label>
+                        <label class="form__picker-item"><input type="checkbox" name="interest" value="история"
+                            onclick="transportCheckbox(this)">история</label>
+                        <label class="form__picker-item"><input type="checkbox" name="interest" value="языки"
+                            onclick="transportCheckbox(this)">языки</label>
+                        <label class="form__picker-item"><input type="checkbox" name="interest" value="путешествия"
+                            onclick="transportCheckbox(this)">путешествия</label>
+                        <label class="form__picker-item"><input type="checkbox" name="interest" value="робототехника"
+                            onclick="transportCheckbox(this)">робототехника</label>
+                        <label class="form__picker-item"><input type="checkbox" name="interest" value="киберспорт"
+                            onclick="transportCheckbox(this)">киберспорт</label>
+                        <label class="form__picker-item"><input type="checkbox" name="interest" value="аниме"
+                            onclick="transportCheckbox(this)">аниме</label>
+                    </div>
+                    <input type="hidden" name="interests">
+                </div>
+                <input type="button" value="ДАЛЕЕ" class="form__next btn" onclick="toggleForm(this)">
+            </fieldset>
+            <fieldset class="form__part">
+                {% csrf_token %}
+                <select required name="track" class="form__input form__select">
+                    <option value="{{old_track}}">{{old_track}}</option>
+                    {% for track in tracks %}
+                        {% if old_track != track %}
+                            <option value="{{track}}">{{track}}</option>
+                        {% endif %}
+                    {% endfor %}
+                    <option value="">Выберите трек</option>
+                </select>
+                <input type="button" value="Выберете стек" class="form__input"
+                    onclick="this.nextElementSibling.classList.toggle('opened')">
+                <div class="form__picker-wrapper">
+                    <div class="form__picker-items form__picker-choosed-items"></div>
+                    <div class="form__picker-items">
+                        {% for stack in stacks %}
+                        <label class="form__picker-item"><input type="checkbox" name="stack-item" value="{{stack}}"
+                                onclick="transportCheckbox(this)">{{stack}}</label>
+                        {% endfor %}
+                    </div>
+                    <input type="hidden" name="stack">
+                </div>
+                <input class="form__input" value="{{phone_number}}" type="tel" pattern="[0-9]{11}" name="phonenumber"
+                    placeholder="Введите телефон">
+                <input class="form__input" type="text" value="{{telegram_handle}}" name="telegram" required placeholder="Введите telegram*">
+                <input class="form__input" type="hidden" value="{{email}}" name="email" placeholder="Введите почту участия*">
+                <input type="submit" value="ИЗМЕНИТЬ" class="form__next btn">
+            </fieldset>
+        </form>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+{% extends 'admin/change_list.html' %}
+{% block object-tools %}
+  <form action="test/" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Скачать" />
+  </form>
+  <form action="auto/" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Запустить автораспределение" />
+  </form>
+    {{ block.super }}
+{% endblock %}

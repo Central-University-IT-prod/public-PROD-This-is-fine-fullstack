@@ -1,0 +1,7 @@
+django
+Pillow
+gunicorn
+django-tinymce==3.5.0
+django-cors-headers
+openai
+requests

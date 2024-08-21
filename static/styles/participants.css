@@ -1,0 +1,250 @@
+.main__container {
+    margin: 0 auto;
+    padding: 30px 31px;
+    justify-content: center;
+    max-width: 500px;
+}
+
+.main__container a {
+    color: inherit;
+}
+
+.search-form {
+    margin: 0 auto;
+    max-width: 500px;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--dark-color);
+    padding: 2px 0 2px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1 1 auto;
+}
+
+.search-input {
+    background: none;
+    width: 100%;
+    height: 50px;
+    border: none;
+    appearance: none;
+    outline: none;
+    color: var(--font-color);
+}
+
+.search-button {
+    height: 100%;
+    padding: 0 10px;
+    margin: 0;
+    border: none;
+    background: none;
+    outline: none !important;
+    cursor: pointer;
+}
+
+.filters__button {
+    flex: 0 0 54px;
+    height: 54px;
+}
+
+.filters__button {
+    border: none;
+    border-radius: 10px;
+    background-color: var(--dark-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-container {
+    display: flex;
+    justify-items: left;
+    gap: 6px;
+}
+
+
+.participants-list {
+    max-width: 500px;
+    padding: 20px 0;
+}
+
+.participant-container {
+    border-radius: 10px;
+    background-color: var(--dark-color);
+    display: flex;
+    padding: 13px;
+    max-width: 500px;
+    margin: 10px 0;
+}
+
+.participant-img {
+    margin-right: 13px;
+}
+
+.participant-img img {
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.participants-text {
+    width: 100%;
+}
+
+.participants-login-data {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.participant-login {
+    font-size: 20px;
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+.participant-fio {
+    opacity: 0.75;
+}
+
+.participant-main-data {
+    word-break: break-word;
+}
+
+.participant-track span {
+    white-space: normal;
+}
+
+.participant-stack span,
+.participant-track span {
+    font-weight: 500;
+    color: var(--main-color);
+}
+
+.participant-invite {
+    display: block;
+    background-color: var(--main-color);
+    margin: 2px auto;
+    padding: 0;
+    border: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.participant-invite img {
+    width: 100%;
+    height: 100%;
+    transform: rotate(45deg);
+}
+
+.participants-login-data .participant-invite {
+    display: none;
+    margin: 0;
+}
+
+.filter__picker-wrapper {
+    display: none;
+}
+
+.filter__picker-items {
+    background-color: var(--dark-color);
+    padding: 17px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+}
+
+.filter__picker-item input {
+    display: block;
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+.filter__picker-item {
+    background-color: var(--main-color);
+    padding: 2px 6px;
+    color: var(--bg-color);
+    border-radius: 5px;
+    font-weight: 400;
+    display: inline-flex;
+    align-items: center;
+    opacity: .68;
+    margin: 2px;
+}
+
+.filter__picker-item::after {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: center url('/static/imgs/cross.svg') no-repeat;
+    transform: rotate(45deg);
+}
+
+.filter__picker-choosed-items .filter__picker-item {
+    opacity: 1;
+}
+
+.filter__picker-choosed-items .filter__picker-item::after {
+    transform: rotate(0);
+}
+
+.filter {
+    background-color: var(--bg-color);
+    width: 320px;
+    box-sizing: border-box;
+    margin-top: 100px;
+    padding: 0;
+}
+
+.filter h2 {
+    text-align: center;
+    margin-top: 0;
+}
+
+.filter__form {
+    padding: 1rem 1.5rem;
+}
+
+.filter__input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 17px;
+    box-sizing: border-box;
+    border: 0;
+    border-radius: 82px;
+    background-color: var(--dark-color);
+    color: var(--font-color);
+}
+
+.filter__input::placeholder {
+    opacity: .64;
+    color: var(--font-color);
+}
+
+.filter__submit {
+    background-color: var(--main-color);
+    font-weight: 600;
+    color: var(--bg-color);
+}
+
+.opened {
+    display: block;
+}
+
+@media (min-width: 445px) {
+    .participant-img .participant-invite {
+        display: none;
+    }
+
+    .participants-login-data .participant-invite {
+        display: block;
+    }
+}

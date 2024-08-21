@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matching</title>
+    <link rel="stylesheet" href="{% static 'styles/theme.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/entry.css' %}">
+    <link rel="apple-touch-icon" href="{% static 'imgs/icons/apple-icon-180x180.png' %}" type="image/png">
+    <link rel="icon" href="{% static 'imgs/icons/icon-120x120.png' %}" type="image/png">
+    <meta name="theme-color" content="#222831">
+    <link rel="manifest" href="{% static '/manifest.webmanifest' %}">
+    <script src="{% static 'scripts/loader.js' %}" async></script>
+</head>
+
+<body>
+    <div id="container-loader" class="container-loader">
+        <div class="lds-ripple">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <div class="container">
+        <h1 class="heading">Matching</h1>
+        <p class="sub-heading">Для начала использования нужно войти</p>
+        {% for error in errors %}
+            <p class="warning">{{error}}</p>
+        {% endfor %}
+        <form action="" method="post" class="form">
+            {% csrf_token %}
+            <input type="text" name="login" placeholder="Логин" value="{{login}}" class="form__input form__input--pic" required>
+            <input type="password" name="password" placeholder="Пароль" class="form__input form__input--pic" required>
+            <input type="checkbox" id="form__checkbox" class="form__checkbox" required>
+            <label for="form__checkbox" class="form__label">
+                <div><span>Соглашаюсь с</span> <a href="/auth/license/">политикой конфидециальности</a></div>
+            </label>
+            <input type="submit" value="ВОЙТИ" class="form__submit btn">
+        </form>
+        <p class="registration">У вас еще не аккаунта? Тогда<br><a href="/auth/register">зарегистрируйтесь</a></p>
+    </div>
+</body>
+
+</html>

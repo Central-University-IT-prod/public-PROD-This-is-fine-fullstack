@@ -1,0 +1,92 @@
+.main__container{
+    margin: 0 auto;
+    padding: 30px 31px;
+    justify-content: center;
+    max-width: 500px;
+}
+
+.alerts-list{
+    max-width: 500px;
+    padding: 20px 0;
+}
+
+.alert-checked {
+    opacity: .64;
+}
+
+.alert-container{
+    border-radius: 10px;
+    background-color: var(--dark-color);
+    display: flex;
+    padding: 13px;
+    max-width: 500px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    grid-template: 5px;
+}
+
+.alert-container img{
+    width: 40px;
+    height: 40px;
+    margin-left: 8px;
+}
+
+.alert-text-container{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.participant{
+    color: var(--main-color);
+}
+.team{
+    color: var(--main-color);
+}
+
+.accept{
+    display: inline-block;
+}
+
+.alert-buttons-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    gap: 15px;
+}
+
+.alert-buttons-container button {
+    flex: 1 0 auto;
+    border: 1px solid rgba(0 ,0 ,0 ,0);
+    border-radius: 10px;
+    background-color: var(--bg-color);
+    padding: 8px;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: border .2s;
+}
+
+.alert-buttons-container button:hover {
+    border: 1px solid var(--font-color);
+}
+
+.alert-buttons-container button:active {
+    border: 1px solid #EEEEEE65;
+}
+
+.alert-buttons-container img {
+    width: 30px;
+    height: 30px;
+    margin-left: 0;
+    margin-right: 10px;
+}
+
+
+

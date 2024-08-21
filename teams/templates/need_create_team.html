@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matching</title>
+    <link rel="stylesheet" href="{% static 'styles/theme.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/header.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/create_team.css' %}">
+    <link rel="apple-touch-icon" href="{% static 'imgs/icons/apple-icon-180x180.png' %}" type="image/png">
+    <link rel="icon" href="{% static 'imgs/icons/icon-120x120.png' %}" type="image/png">
+    <meta name="theme-color" content="#222831">
+    <link rel="manifest" href="{% static '/manifest.webmanifest' %}">
+    <script src="{% static 'scripts/loader.js' %}" async></script>
+</head>
+
+<body>
+    <div id="container-loader" class="container-loader">
+        <div class="lds-ripple">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <div class="header__icon">
+                <a href="/">Matching</a>
+            </div>
+            <nav>
+                <ul class="header__list">
+                    <li class="header__list-item"><a href="/my-profile/">Профиль</a></li>
+                    <li class="header__list-item"><a href="/teams">Команды</a></li>
+                    <li class="header__list-item active"><a href="/teams/my-team">Моя команда</a></li>
+                    <li class="header__list-item"><a href="/notifications/">Уведомления</a></li>
+                </ul>
+                <ul class="header__list header__list--mobile">
+                    <li class="header__list-item"><a href="/" aria-label="Перейти на главную страницу">
+                            <img src="{% static 'imgs/home.svg' %}" alt="значок главной">
+                        </a></li>
+                    <li class="header__list-item"><a href="/my-profile/" aria-label="Перейти на страницу профиля">
+                            <img src="{% static 'imgs/user.svg' %}" alt="значок профиля">
+                        </a></li>
+                    <li class="header__list-item"><a href="/teams/" aria-label="Перейти на страницу команд">
+                            <img src="{% static 'imgs/teams.svg' %}" alt="значок команд">
+                        </a></li>
+                    <li class="header__list-item active"><a href="/teams/my-team/" aria-label="Перейти на страницу моей команды">
+                            <img src="{% static 'imgs/my-team.svg' %}" alt="значок моей комманды">
+                        </a></li>
+                    <li class="header__list-item"><a href="/notifications/" aria-label="Перейти на страницу уведомлений">
+                            <img src="{% static 'imgs/notifications.svg' %}" alt="значок уведомлений">
+                        </a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="main__container">
+        <div class="main-title">Моя команда</div>
+        <div class="subtitle">
+            У вас еще нет команды
+        </div>
+        <button class = "create-team-button" onclick="window.location.replace('/teams/create-team/')">Создать команду</button>
+    </div>
+    
+
+</body>
+
+</html>

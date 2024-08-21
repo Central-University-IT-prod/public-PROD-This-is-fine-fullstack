@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;600&display=swap');
+
+a:focus, a:active {
+    outline: none;
+}
+
+a, a:visited {
+    text-decoration-color: rgba(0, 0, 0, 0);
+}
+
+a:hover {
+    text-decoration-color: inherit;
+}
+
+a {
+    color: var(--main-color);
+    transition: text-decoration-color .3s;
+}
+
+button {
+    color: inherit;
+}
+
+input,
+button,
+textarea {
+    font: inherit;
+}
+
+.container {
+    max-width: 900px;
+    box-sizing: content-box;
+    margin: 0 auto;
+    padding: 0 31px;
+}
+
+body {
+    font-size: 1rem;
+    font-family: "Manrope", "Arial", sans-serif;
+    font-weight: 300;
+    background-color: var(--bg-color);
+    color: var(--font-color);
+    min-height: 100vh;
+    margin: 0;
+}

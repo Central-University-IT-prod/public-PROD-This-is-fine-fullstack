@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matching</title>
+    <link rel="stylesheet" href="{% static 'styles/theme.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/header.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/team.css' %}">
+    <link rel="apple-touch-icon" href="{% static 'imgs/icons/apple-icon-180x180.png' %}" type="image/png">
+    <link rel="icon" href="{% static 'imgs/icons/icon-120x120.png' %}" type="image/png">
+    <meta name="theme-color" content="#222831">
+    <link rel="manifest" href="{% static '/manifest.webmanifest' %}">
+    <script src="{% static 'scripts/team.js' %}" async></script>
+    <script src="{% static 'scripts/loader.js' %}" async></script>
+</head>
+
+<body>
+    <div id="container-loader" class="container-loader">
+        <div class="lds-ripple">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <dialog class="confirmation">
+        <div class="confirmation__wrapper">
+            Вы уверены?
+            {% if request.user in members_users_data %}
+                <input type="button" value="Да" onclick="leaveTeam('{{team.pk}}')">
+            {% elif request.user == team.owner %}
+                <input type="button" value="Да" onclick="deleteTeam('{{team.pk}}')">
+            {% endif %}
+        </div>
+    </dialog>
+
+    <header class="header">
+        <div class="container">
+            <div class="header__icon">
+                <a href="/">Matching</a>
+            </div>
+            <nav>
+                <ul class="header__list">
+                    <li class="header__list-item"><a href="/my-profile/">Профиль</a></li>
+                    {% if request.user == team.owner or request.user in members_users_data %}
+                    <li class="header__list-item"><a href="/teams/">Команды</a></li>
+                    <li class="header__list-item active"><a href="/teams/my-team/">Моя команда</a></li>
+                    {% else %}
+                    <li class="header__list-item active"><a href="/teams/">Команды</a></li>
+                    <li class="header__list-item"><a href="/teams/my-team/">Моя команда</a></li>
+                    {% endif %}
+                    <li class="header__list-item"><a href="/notifications/">Уведомления</a></li>
+                </ul>
+                <ul class="header__list header__list--mobile">
+                    <li class="header__list-item"><a href="/" aria-label="Перейти на главную страницу">
+                            <img src="{% static 'imgs/home.svg'%}" alt="значок главной">
+                        </a></li>
+                    <li class="header__list-item"><a href="/my-profile/" aria-label="Перейти на страницу профиля">
+                            <img src="{% static 'imgs/user.svg'%}" alt="значок профиля">
+                        </a></li>
+                    {% if request.user == team.owner or request.user in members_users_data %}
+                    <li class="header__list-item"><a href="/teams/" aria-label="Перейти на страницу команд">
+                            <img src="{% static 'imgs/teams.svg'%}" alt="значок команд">
+                        </a></li>
+                    <li class="header__list-item active"><a href="/teams/my-team/" aria-label="Перейти на страницу моей команды">
+                            <img src="{% static 'imgs/my-team.svg'%}" alt="значок моей комманды">
+                        </a></li>
+                    {% else %}
+                    <li class="header__list-item active"><a href="/teams/" aria-label="Перейти на страницу команд">
+                        <img src="{% static 'imgs/teams.svg'%}" alt="значок команд">
+                    </a></li>
+                    <li class="header__list-item"><a href="/teams/my-team/" aria-label="Перейти на страницу моей команды">
+                        <img src="{% static 'imgs/my-team.svg'%}" alt="значок моей комманды">
+                    </a></li>
+                    {% endif %}
+                    <li class="header__list-item"><a href="/notifications/" aria-label="Перейти на страницу уведомлений">
+                            <img src="{% static 'imgs/notifications.svg'%}" alt="значок уведомлений">
+                        </a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container main__container">
+            <h1 class="heading">{{team.name }}</h1>
+            <div class="description">{{team.full_description}}</div>
+            <div class="team__search">
+                <span>Ищем: </span><span class="team__tracks">{{who_need}}</span>
+            </div>
+            {% if request.user == owner and not ok %}
+                <p class="warning">Ваша команда не соответствует требованиям!</p>
+            {% endif %}
+            <div class="participants-list">
+                <a class="participant-link" href="/profiles/{{owner.profile.pk}}">
+                    <div class="participant-container">
+                        <div class="participant-img">
+                            <img src="/media/{{owner.profile.avatar}}" alt="аватар">
+                        </div>
+                        <div class="participants-text">
+                            <div class="participants-login-data">
+                                <div class="participant-login">{{owner.username}}<img src="{% static '/imgs/leader.svg' %}" alt="символ лидера">
+                                </div>
+                                <div class="participant-fio">{{owner.profile.fio}}</div>
+                            </div>
+                            <div class="participant-main-data">
+                                <div class="participant-track">
+                                    <span>Трек:</span> {{owner.profile.track.name}}
+                                </div>
+                                <div class="participant-stack">
+                                    {% if owner.profile.stack %}
+                                        <span>Стек:</span> {{owner.profile.stack|join:", "}}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% for member in members %}
+                <a class="participant-link" href="/profiles/{{member.user.profile.pk}}">
+                    <div class="participant-container">
+                        <div class="participant-img">
+                            <img src="/media/{{member.user.profile.avatar}}" alt="аватар">
+                        </div>
+                        <div class="participants-text">
+                            <div class="participants-login-data">
+                                <div class="participant-login">{{member.user.username}}</div>
+                                <div class="participant-fio">{{member.user.profile.fio}}</div>
+                            </div>
+                            <div class="participant-main-data">
+                                <div class="participant-track">
+                                    <span>Трек:</span> {{member.user.profile.track.name}}
+                                </div>
+                                <div class="participant-stack">
+                                    {% if member.user.profile.stack %}
+                                        <span>Стек:</span> {{member.user.profile.stack|join:", "}}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            {% if request.user == team.owner %}
+            <div class="btns-list">
+                <button class="btn" onclick="document.querySelector('.confirmation').showModal()">Удалить команду<img src="{% static 'imgs/my-team_img/bin.svg' %}" alt="иконка корзины"></button>
+                <button class="btn" onclick="document.location.replace('/teams/edit-team');">Изменить команду<img src="{% static 'imgs/my-team_img/edit.svg' %}"
+                        alt="иконка изменения"></button>
+                <button class="btn" onclick='window.location="/participants"'>Найти учасников<img src="{% static 'imgs/my-team_img/search.svg' %}" alt="иконка поиска"></button>
+            </div>
+            {% elif request.user in members_users_data %}
+            <div class="btns-list">
+                <button class="btn" onclick="document.querySelector('.confirmation').showModal()">Выйти из команды<img src="{% static 'imgs/my-team_img/bin.svg' %}" alt="иконка корзины"></button>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+</body>
+
+</html>
